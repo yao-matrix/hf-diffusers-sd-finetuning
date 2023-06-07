@@ -72,12 +72,14 @@ mpirun -f nodefile -n 16 -ppn 4 accelerate launch textual_inversion.py \
 Once you are done, you can refer to the `run_inference.py` to do the inference.
 
 
-## additional tip in devcloud
+## tips for IDC(Intel Dev Cloud)
 ### passwordless SSH  
-   Take 4 nodes in devloud for example.  
-   devcloud@192.168.20.2;devcloud@192.168.21.2;devcloud@192.168.22.2;devcloud@192.168.23.2  
-   we use 192.168.20.2 as master node to run mpirun, which should be able to ssh the other 3 nodes without passwd. you could use following steps in 
-   192.168.20.2
+For example, you have 4 nodes in devloud as below:
+- devcloud@192.168.20.2
+- devcloud@192.168.21.2
+- devcloud@192.168.22.2
+- devcloud@192.168.23.2  
+we use 192.168.20.2 as master node to run mpirun, which should be able to ssh the other 3 nodes without passwd. you could use following steps in 192.168.20.2
 ``` shell
 ssh-keygen -t rsa
 ssh-copy-id -i /home/devcloud/.ssh/id_rsa devcloud@192.168.20.2
@@ -87,23 +89,18 @@ ssh-copy-id -i /home/devcloud/.ssh/id_rsa devcloud@192.168.23.2
 ```
 
 ###  enviroment set  
-   Since devcloud has no NFS support, you need to setup the conda env, build diffuser code, accelerate config in `every node`.  
-   accelerate config in each node.  
-   master node, node 0 in 192.168.20.2  
+Since devcloud hasn't support NFS yet, you need to setup the conda env, build diffuser code, accelerate config in `every node`.  
+accelerate config in each node.  
+- master node, node 0 in 192.168.20.2  
    <img src="assets/3.png" width=800>
 
-   other nodes, for ex, node 3 in 192.168.23.2  
+- other nodes, for example, node 3 in 192.168.23.2  
    <img src="assets/4.png" width=800>
 
-
 ###  I_MPI_HYDRA_IFACE set  
-   Since devcloud has no infiniband, you need to set I_MPI_HYDRA_IFACE explicity in master node(192.168.20.2), or else, mpirun will fail.  
-   `ifconfig` to get the working NIC port, it's ens786f1 in master node. After the setup, you could run mpirun in master node.  
+Since devcloud has no infiniband, you need to set I_MPI_HYDRA_IFACE explicity in master node(192.168.20.2), otherwise, mpirun will fail.  
+`ifconfig` to get the working NIC port, it's ens786f1 in master node. After the setup, you could run mpirun in master node.  
    <img src="assets/5.png" width=600>
 ```shell
 export I_MPI_HYDRA_IFACE=ens786f1
 ```
-
-   
-
-
