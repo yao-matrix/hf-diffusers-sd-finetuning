@@ -1,4 +1,4 @@
-# Distributed Stable Diffusion Textual Inversion Finetuning w/ multi-node CPU 
+# Distributed Stable Diffusion Textual Inversion Finetuning w/ multi-node CPU
 
 ## env setup
 ```shell
@@ -71,9 +71,8 @@ mpirun -f nodefile -n 16 -ppn 4 accelerate launch textual_inversion.py \
 ## inference
 Once you are done, you can refer to the `run_inference.py` to do the inference.
 
-
-## tips for IDC(Intel Dev Cloud)
-### passwordless SSH  
+## tips for IDC (Intel Dev Cloud)
+### enable passwordless SSH
 For example, you have 4 nodes in devloud as below:
 - devcloud@192.168.20.2
 - devcloud@192.168.21.2
@@ -88,16 +87,16 @@ ssh-copy-id -i /home/devcloud/.ssh/id_rsa devcloud@192.168.22.2
 ssh-copy-id -i /home/devcloud/.ssh/id_rsa devcloud@192.168.23.2
 ```
 
-###  enviroment set  
-Since devcloud hasn't support NFS yet, you need to setup the conda env, build diffuser code, accelerate config in `every node`.  
-accelerate config in each node.  
-- master node, node 0 in 192.168.20.2  
+### configure accelerate
+Since devcloud hasn't support NFS yet, you need to setup the conda env, build diffuser code, accelerate config in `every node`. 
+accelerate config in each node.
+- master node, node 0 in 192.168.20.2
    <img src="assets/3.png" width=800>
 
-- other nodes, for example, node 3 in 192.168.23.2  
+- other nodes, for example, node 3 in 192.168.23.2
    <img src="assets/4.png" width=800>
 
-###  I_MPI_HYDRA_IFACE set  
+### set NIC for MPI
 Since devcloud has no infiniband, you need to set I_MPI_HYDRA_IFACE explicity in master node(192.168.20.2), otherwise, mpirun will fail.  
 `ifconfig` to get the working NIC port, it's ens786f1 in master node. After the setup, you could run mpirun in master node.  
    <img src="assets/5.png" width=600>
