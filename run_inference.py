@@ -1,7 +1,7 @@
 from diffusers import StableDiffusionPipeline
 import torch
 
-model_id = "~/textual_inversion_cat"
+model_id = "./textual_inversion_cat"
 pipe = StableDiffusionPipeline.from_pretrained(model_id,torch_dtype=torch.float32).to("cpu")
 
 prompt = [
