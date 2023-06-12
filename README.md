@@ -103,3 +103,7 @@ mpirun -f nodefile -n 16 -ppn 4 accelerate launch textual_inversion.py \
 
 ## inference
 Once you are done, you can refer to the `run_inference.py` to do the inference.
+
+## validated package
+
+<img src="assets/6.png" width=400>
