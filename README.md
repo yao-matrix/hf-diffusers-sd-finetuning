@@ -2,7 +2,7 @@
 
 ## cluster setup (only for IDC (Intel Dev Cloud))
 ### enable passwordless SSH
-For example, you have 4 nodes in devloud as below:
+For example, if you have 4 nodes in devloud as below:
 - devcloud@192.168.20.2
 - devcloud@192.168.21.2
 - devcloud@192.168.22.2
@@ -70,7 +70,7 @@ export CCL_ATL_TRANSPORT=ofi
 export CCL_WORKER_COUNT=1 (enable ccl to work with ipex bf16 training, ccl offers optimization for bf16)
  
 export MODEL_NAME="runwayml/stable-diffusion-v1-5"
-export DATA_DIR="/panfs/users/ywan171/dicco"
+export DATA_DIR="<path_to_finetune_images>"
 ```
 
 ## change a bit on `examples/textual_inversion/textual_inversion.py` to enjoy IPEX inference boost
